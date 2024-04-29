@@ -1,5 +1,5 @@
 [package]
-name = "first_game"
+name = "party_perticipants_screener"
 version = "0.1.0"
 edition = "2021"
 authors = ["XO9A8"]

@@ -1,4 +1,4 @@
-use first_game::visitor_info::{Visitor, VisitorAction};
+use party_perticipants_screener::visitor_info::{Visitor, VisitorAction};
 fn main() {
     let mut visitor_list: Vec<Visitor> = Vec::new();
     visitor_list.push(Visitor::new("Bert", 45, VisitorAction::Accept));
