@@ -1,0 +1,24 @@
+# Global ignores for Rust monorepo
+target/
+**/target/
+
+# Depending on your policy you may wish to keep Cargo.lock for binary crates.
+# Remove next line if you want to track them.
+Cargo.lock
+
+# IDE/editor
+.vscode/
+.idea/
+*.iml
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Logs
+*.log
+
+# Backup
+*.swp
+*.tmp
+~*
