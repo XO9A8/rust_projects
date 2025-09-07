@@ -1,10 +1,10 @@
 [workspace]
 members = [
-    "chip8_emulation",
-    "flappy_xo9a8",
-    "guessing_game",
-    "partical_madness",
-    "party_perticipants_screener",
-    "riseIn_task1"
+  "chip8_emulation",
+  "flappy_xo9a8", 
+  "guessing_game",
+  "partical_madness",
+  "party_perticipants_screener",
+  "riseIn_task1"
 ]
 resolver = "2"
