@@ -6,5 +6,5 @@ members = [
   "partical_madness",
   "party_perticipants_screener",
   "riseIn_task1"
-, "riseIn_task2"]
+, "riseIn_task2", "riseIn_task3"]
 resolver = "2"
