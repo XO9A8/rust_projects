@@ -11,10 +11,11 @@ A collection of Rust learning projects and experiments, organized as a Cargo wor
 
 ### 🔬 Experiments & Demos
 - **[partical_madness](./partical_madness/)** - Particle system simulation
-- **[party_perticipants_screener](./party_perticipants_screener/)** - Event participant screening tool
+- **[party_perticipants_screener](./party_perticipants_screener/)** - Event participant
 
 ### 📚 Learning Projects
 - **[riseIn_task1](./riseIn_task1/)** - RiseIn bootcamp task implementation
+- **[riseIn_task2](./riseIn_task2/)** - Follow-up bootcamp challenge exploring file I/O and CRC
 
 ## 🚀 Quick Start
 
@@ -40,6 +41,7 @@ cargo run -p guessing_game
 cargo run -p partical_madness
 cargo run -p party_perticipants_screener
 cargo run -p riseIn_task1
+cargo run -p riseIn_task2
 
 # Or navigate to project directory and run
 cd chip8_emulation
@@ -53,6 +55,7 @@ cargo test --workspace
 
 # Test specific project
 cargo test -p guessing_game
+cargo test -p riseIn_task2
 ```
 
 ## 🛠️ Development
@@ -69,6 +72,9 @@ rust_projects/
 │   ├── Cargo.toml
 │   └── src/
 ├── flappy_xo9a8/      # Individual project
+│   ├── Cargo.toml
+│   └── src/
+├── riseIn_task2/      # Individual project
 │   ├── Cargo.toml
 │   └── src/
 └── ...                 # Other projects
