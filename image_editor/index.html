@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Editor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="theme-switcher">
+        <label class="switch">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider round"></span>
+        </label>
+    </div>
+
+    <h1>Image Editor</h1>
+
+    <div class="container">
+        <div class="image-display">
+            <canvas id="canvas"></canvas>
+        </div>
+        <div class="editor">
+            <div class="controls">
+                <div class="control">
+                    <label for="brightness">Brightness</label>
+                    <input type="range" id="brightness" min="-100" max="100" value="0">
+                </div>
+                <div class="control">
+                    <label for="contrast">Contrast</label>
+                    <input type="range" id="contrast" min="-100" max="100" value="0">
+                </div>
+                <div class="control">
+                    <label for="grayscale">Grayscale</label>
+                    <input type="range" id="grayscale" min="0" max="100" value="0">
+                </div>
+                <div class="control">
+                    <label for="blur">Blur</label>
+                    <input type="range" id="blur" min="0" max="10" value="0">
+                </div>
+                <div class="control">
+                    <label for="saturate">Saturate</label>
+                    <input type="range" id="saturate" min="0" max="200" value="100">
+                </div>
+                <div class="control">
+                    <label for="hue-rotate">Hue</label>
+                    <input type="range" id="hue-rotate" min="0" max="360" value="0">
+                </div>
+                <div class="control">
+                    <label for="invert">Invert</label>
+                    <input type="range" id="invert" min="0" max="100" value="0">
+                </div>
+                <div class="control">
+                    <label for="sepia">Sepia</label>
+                    <input type="range" id="sepia" min="0" max="100" value="0">
+                </div>
+                <div class="control">
+                    <label for="opacity">Opacity</label>
+                    <input type="range" id="opacity" min="0" max="100" value="100">
+                </div>
+            </div>
+
+            <div class="custom-filters">
+                <button id="vintage">Vintage</button>
+                <button id="lomo">Lomo</button>
+                <button id="clarity">Clarity</button>
+                <button id="emboss">Emboss</button>
+                <button id="pixelate">Pixelate</button>
+            </div>
+
+            <div class="transform-buttons">
+                <button id="rotateLeft">Rotate Left</button>
+                <button id="rotateRight">Rotate Right</button>
+                <button id="flipHorizontal">Flip Horizontal</button>
+                <button id="flipVertical">Flip Vertical</button>
+            </div>
+
+            <div class="buttons">
+                <div class="file-upload-wrapper">
+                    <button>Load Image</button>
+                    <input type="file" id="imageLoader" name="imageLoader"/>
+                </div>
+                <button id="saveButton">Save Image</button>
+                <button id="resetButton">Reset</button>
+            </div>
+            <div id="fileName"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
