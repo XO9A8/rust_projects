@@ -11,11 +11,13 @@ A collection of Rust learning projects and experiments, organized as a Cargo wor
 
 ### 🔬 Experiments & Demos
 - **[partical_madness](./partical_madness/)** - Particle system simulation
-- **[party_perticipants_screener](./party_perticipants_screener/)** - Event participant
+- **[party_perticipants_screener](./party_perticipants_screener/)** - Event participant screening tool
 
 ### 📚 Learning Projects
-- **[riseIn_task1](./riseIn_task1/)** - RiseIn bootcamp task implementation
-- **[riseIn_task2](./riseIn_task2/)** - Follow-up bootcamp challenge exploring file I/O and CRC
+- **[little_problems/nyt_api](./little_problems/nyt_api/)** - Async client that prints NYT Top Stories headlines
+- **[little_problems/riseIn_task1](./little_problems/riseIn_task1/)** - Simple string concatenation utility from the RiseIn bootcamp
+- **[little_problems/riseIn_task2](./little_problems/riseIn_task2/)** - CLI calculator practicing enums and pattern matching
+- **[little_problems/riseIn_task3](./little_problems/riseIn_task3/)** - Banking simulation showcasing traits and structured data
 
 ## 🚀 Quick Start
 
@@ -42,6 +44,8 @@ cargo run -p partical_madness
 cargo run -p party_perticipants_screener
 cargo run -p riseIn_task1
 cargo run -p riseIn_task2
+cargo run -p riseIn_task3
+cargo run -p nyt_api
 
 # Or navigate to project directory and run
 cd chip8_emulation
@@ -56,6 +60,8 @@ cargo test --workspace
 # Test specific project
 cargo test -p guessing_game
 cargo test -p riseIn_task2
+cargo test -p riseIn_task3
+cargo test -p nyt_api
 ```
 
 ## 🛠️ Development
@@ -74,9 +80,19 @@ rust_projects/
 ├── flappy_xo9a8/      # Individual project
 │   ├── Cargo.toml
 │   └── src/
-├── riseIn_task2/      # Individual project
-│   ├── Cargo.toml
-│   └── src/
+├── little_problems/
+│   ├── nyt_api/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── riseIn_task1/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   ├── riseIn_task2/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   └── riseIn_task3/
+│       ├── Cargo.toml
+│       └── src/
 └── ...                 # Other projects
 ```
 

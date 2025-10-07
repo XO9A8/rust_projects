@@ -1,10 +1,13 @@
 [workspace]
 members = [
   "chip8_emulation",
-  "flappy_xo9a8", 
+  "flappy_xo9a8",
   "guessing_game",
+  "little_problems/nyt_api",
   "partical_madness",
   "party_perticipants_screener",
-  "riseIn_task1"
-, "riseIn_task2", "riseIn_task3"]
+  "little_problems/riseIn_task1",
+  "little_problems/riseIn_task2",
+  "little_problems/riseIn_task3"
+]
 resolver = "2"
