@@ -37,7 +37,7 @@ unsafe impl GlobalAlloc for ReportingAllocator {
 
 struct World {
     current_turn: u64,
-    particles: Vec<Box<Particle>>,
+    particles: Vec<Particle>,
     height: f64,
     width: f64,
     rng: ThreadRng,
@@ -53,14 +53,18 @@ struct Particle {
 }
 
 impl Particle {
-    fn new(world: &World) -> Particle {
-        let mut rng = thread_rng();
-        let x = rng.gen_range(0.0..=world.width);
+    fn new(world: &mut World) -> Particle {
+        let x = world.rng.gen_range(0.0..=world.width);
         let y = world.height;
         let x_velocity = 0.0;
-        let y_velocity = rng.gen_range(-2.0..0.0);
+        let y_velocity = world.rng.gen_range(-2.0..0.0);
         let x_acceleration = 0.0;
-        let y_acceleration = rng.gen_range(0.0..0.15);
+        let y_acceleration = world.rng.gen_range(0.0..0.15);
+        
+        // Add color variation for visual appeal
+        let r = world.rng.gen_range(0.8..=1.0);
+        let g = world.rng.gen_range(0.6..=1.0);
+        let b = world.rng.gen_range(0.4..=1.0);
 
         Particle {
             height: 4.0,
@@ -68,7 +72,7 @@ impl Particle {
             position: [x, y].into(),
             velocity: [x_velocity, y_velocity].into(),
             acceleration: [x_acceleration, y_acceleration].into(),
-            color: [1.0, 1.0, 1.0, 0.99],
+            color: [r, g, b, 0.99],
         }
     }
 
@@ -78,45 +82,42 @@ impl Particle {
         self.acceleration = mul_scalar(self.acceleration, 0.7);
         self.color[3] *= 0.995;
     }
+    
+    fn is_dead(&self) -> bool {
+        self.color[3] < 0.02
+    }
 }
 
 impl World {
     fn new(width: f64, height: f64) -> World {
         World {
             current_turn: 0,
-            particles: Vec::<Box<Particle>>::new(),
-            height: height,
-            width: width,
+            particles: Vec::with_capacity(1000),
+            height,
+            width,
             rng: thread_rng(),
         }
     }
 
     fn add_shapes(&mut self, n: i32) {
         for _ in 0..n.abs() {
-            let particle = Particle::new(&self);
-            let boxed_particle = Box::new(particle);
-            self.particles.push(boxed_particle);
+            let particle = Particle::new(self);
+            self.particles.push(particle);
         }
     }
 
     fn remove_shapes(&mut self, n: i32) {
         for _ in 0..n.abs() {
-            let mut to_delete = None;
-
-            let particle_iter = self.particles.iter().enumerate();
-
-            for (i, particle) in particle_iter {
-                if particle.color[3] < 0.02 {
-                    to_delete = Some(i);
-                }
+            if self.particles.is_empty() {
                 break;
             }
-
-            if let Some(i) = to_delete {
-                self.particles.remove(i);
+            
+            // Find first dead particle or remove oldest
+            if let Some(i) = self.particles.iter().position(|p| p.is_dead()) {
+                self.particles.swap_remove(i);
             } else {
-                self.particles.remove(0);
-            };
+                self.particles.swap_remove(0);
+            }
         }
     }
 
@@ -129,18 +130,26 @@ impl World {
             self.remove_shapes(n);
         }
 
-        self.particles.shrink_to_fit();
-        for shape in &mut self.particles {
-            shape.update();
+        // Remove dead particles in batch for efficiency
+        self.particles.retain(|p| !p.is_dead());
+        
+        // Only shrink periodically to avoid frequent reallocations
+        if self.current_turn % 100 == 0 {
+            self.particles.shrink_to_fit();
+        }
+        
+        for particle in &mut self.particles {
+            particle.update();
         }
         self.current_turn += 1;
     }
 }
 
 fn main() {
-    let (width, height) = (1280.0, 960.0);
+    let (width, height) = (1920.0, 1080.0);
     let mut window: PistonWindow = WindowSettings::new("particles", [width, height])
         .exit_on_esc(true)
+        .vsync(true)
         .build()
         .expect("Could not create a window.");
 
@@ -153,9 +162,9 @@ fn main() {
         window.draw_2d(&event, |ctx, renderer, _device| {
             clear([0.15, 0.17, 0.17, 0.9], renderer);
 
-            for s in &mut world.particles {
-                let size = [s.position[0], s.position[1], s.width, s.height];
-                rectangle(s.color, size, ctx.transform, renderer);
+            for particle in &world.particles {
+                let size = [particle.position[0], particle.position[1], particle.width, particle.height];
+                rectangle(particle.color, size, ctx.transform, renderer);
             }
         });
     }
