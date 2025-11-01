@@ -9,5 +9,5 @@ members = [
   "little_problems/riseIn_task1",
   "little_problems/riseIn_task2",
   "little_problems/riseIn_task3"
-, "practise/pointers"]
+, "practise/pointers", "async_prog", "async_chat_server"]
 resolver = "2"

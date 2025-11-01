@@ -56,7 +56,7 @@ mod tests {
         cell.set(15);
         assert_eq!(*cell.get(), 15);
     }
-
+    //hl
     #[test]
     fn test_with_struct() {
         #[derive(Debug, PartialEq, Clone, Copy)]
