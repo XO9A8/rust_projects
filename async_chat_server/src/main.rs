@@ -1,11 +1,40 @@
+//! # Async Chat Server
+//!
+//! A multi-room TCP chat server that allows clients to connect and communicate
+//! in real-time across different chat rooms.
+//!
+//! ## Usage
+//!
+//! Run the server with:
+//! ```bash
+//! cargo run
+//! ```
+//!
+//! Connect using telnet or netcat:
+//! ```bash
+//! telnet 127.0.0.1 8080
+//! ```
+//!
+//! ## Architecture
+//!
+//! The server uses Tokio for async I/O and spawns a separate task for each
+//! connected client. A global "Global" room is created on startup, and clients
+//! can create or join additional rooms dynamically.
+
 use async_chat_server::handle_client;
 use std::collections::HashMap;
 use std::net::SocketAddr;
 use std::sync::Arc;
 use tokio::net::TcpListener;
 use tokio::sync::{Mutex, broadcast};
+
+/// Type alias for the shared chat state across all clients and rooms.
 type ChatState = Arc<Mutex<HashMap<String, broadcast::Sender<(String, SocketAddr)>>>>;
 
+/// Main entry point for the chat server.
+///
+/// Sets up the TCP listener, creates a global chat room, and accepts
+/// incoming connections in a loop, spawning a new task for each client.
 #[tokio::main]
 async fn main() {
     let listener = TcpListener::bind("127.0.0.1:8080").await.unwrap();

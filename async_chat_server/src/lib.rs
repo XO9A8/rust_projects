@@ -1,3 +1,30 @@
+//! # Async Chat Server Library
+//!
+//! This library provides the core functionality for handling chat clients in a multi-room
+//! asynchronous chat server built with Tokio.
+//!
+//! ## Features
+//!
+//! - Multi-room chat support with dynamic room creation
+//! - Concurrent client handling using Tokio tasks
+//! - Message broadcasting within rooms
+//! - Thread-safe state management
+//!
+//! ## Example
+//!
+//! ```no_run
+//! use async_chat_server::handle_client;
+//! use std::collections::HashMap;
+//! use std::sync::Arc;
+//! use tokio::net::TcpStream;
+//! use tokio::sync::{Mutex, broadcast};
+//!
+//! # async fn example(socket: TcpStream, addr: std::net::SocketAddr) {
+//! let state = Arc::new(Mutex::new(HashMap::new()));
+//! handle_client(socket, addr, state).await;
+//! # }
+//! ```
+
 use std::collections::HashMap;
 use std::net::SocketAddr;
 use std::sync::Arc;
@@ -5,8 +32,48 @@ use tokio::io::{AsyncBufReadExt, AsyncWriteExt, BufReader};
 use tokio::net::TcpStream;
 use tokio::sync::{Mutex, broadcast};
 
+/// Type alias for the shared chat state.
+///
+/// Maps room names to their broadcast channels. The Arc and Mutex allow
+/// thread-safe shared access across multiple async tasks.
 type ChatState = Arc<Mutex<HashMap<String, broadcast::Sender<(String, SocketAddr)>>>>;
 
+/// Handles a connected client's chat session.
+///
+/// This function manages the entire lifecycle of a client connection:
+/// 1. Displays available chat rooms
+/// 2. Allows the client to join or create a room
+/// 3. Handles sending and receiving messages concurrently
+/// 4. Cleans up on disconnection
+///
+/// # Arguments
+///
+/// * `socket` - The TCP socket for the connected client
+/// * `addr` - The socket address of the client
+/// * `state` - Shared state containing all chat rooms and their channels
+///
+/// # Examples
+///
+/// ```no_run
+/// use async_chat_server::handle_client;
+/// use std::collections::HashMap;
+/// use std::sync::Arc;
+/// use tokio::net::TcpListener;
+/// use tokio::sync::Mutex;
+///
+/// # async fn example() -> Result<(), Box<dyn std::error::Error>> {
+/// let listener = TcpListener::bind("127.0.0.1:8080").await?;
+/// let state = Arc::new(Mutex::new(HashMap::new()));
+///
+/// loop {
+///     let (socket, addr) = listener.accept().await?;
+///     let state_clone = Arc::clone(&state);
+///     tokio::spawn(async move {
+///         handle_client(socket, addr, state_clone).await;
+///     });
+/// }
+/// # }
+/// ```
 pub async fn handle_client(mut socket: TcpStream, addr: SocketAddr, state: ChatState) {
     let (reader, mut writer) = socket.split();
 
