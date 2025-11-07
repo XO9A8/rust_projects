@@ -9,7 +9,13 @@ A collection of Rust learning projects and experiments, organized as a Cargo wor
 - **[flappy_xo9a8](./flappy_xo9a8/)** - Flappy Bird clone game
 - **[guessing_game](./guessing_game/)** - Classic number guessing game
 
+### 🌐 Network & Web
+- **[async_chat_server](./async_chat_server/)** - Asynchronous chat server implementation
+- **[async_web_crawler](./async_web_crawler/)** - Web crawler using async Rust
+- **[url_shortner](./url_shortner/)** - URL shortening service with database
+
 ### 🔬 Experiments & Demos
+- **[async_prog](./async_prog/)** - Async programming examples and patterns
 - **[partical_madness](./partical_madness/)** - Particle system simulation
 - **[party_perticipants_screener](./party_perticipants_screener/)** - Event participant screening tool
 
@@ -18,6 +24,9 @@ A collection of Rust learning projects and experiments, organized as a Cargo wor
 - **[little_problems/riseIn_task1](./little_problems/riseIn_task1/)** - Simple string concatenation utility from the RiseIn bootcamp
 - **[little_problems/riseIn_task2](./little_problems/riseIn_task2/)** - CLI calculator practicing enums and pattern matching
 - **[little_problems/riseIn_task3](./little_problems/riseIn_task3/)** - Banking simulation showcasing traits and structured data
+
+### 🧠 Advanced Concepts
+- **[practise/pointers](./practise/pointers/)** - Pointer types and smart pointers (Rc, Arc, Box, etc.)
 
 ## 🚀 Quick Start
 
@@ -36,16 +45,26 @@ cargo build --workspace --release
 
 ### Running Individual Projects
 ```bash
-# Run a specific project
+# Games & Emulation
 cargo run -p chip8_emulation
 cargo run -p flappy_xo9a8
 cargo run -p guessing_game
+
+# Network & Web
+cargo run -p async_chat_server
+cargo run -p async_web_crawler
+cargo run -p url_shortner
+
+# Experiments
+cargo run -p async_prog
 cargo run -p partical_madness
 cargo run -p party_perticipants_screener
+
+# Learning Projects
+cargo run -p nyt_api
 cargo run -p riseIn_task1
 cargo run -p riseIn_task2
 cargo run -p riseIn_task3
-cargo run -p nyt_api
 
 # Or navigate to project directory and run
 cd chip8_emulation
@@ -74,12 +93,25 @@ rust_projects/
 ├── Cargo.toml          # Workspace configuration
 ├── .gitignore          # Rust-specific ignores
 ├── README.md
-├── chip8_emulation/    # Individual project
+├── chip8_emulation/    # CHIP-8 emulator
 │   ├── Cargo.toml
 │   └── src/
-├── flappy_xo9a8/      # Individual project
+├── flappy_xo9a8/      # Flappy Bird game
 │   ├── Cargo.toml
 │   └── src/
+├── async_chat_server/ # Chat server
+│   ├── Cargo.toml
+│   └── src/
+├── async_web_crawler/ # Web crawler
+│   ├── Cargo.toml
+│   └── src/
+├── url_shortner/      # URL shortening service
+│   ├── Cargo.toml
+│   └── src/
+├── practise/
+│   └── pointers/      # Smart pointers practice
+│       ├── Cargo.toml
+│       └── src/
 ├── little_problems/
 │   ├── nyt_api/
 │   │   ├── Cargo.toml
